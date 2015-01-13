@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var _ = require('lodash');
 var glob = require('glob');
 var basename = require('path').basename;
@@ -11,6 +12,8 @@ module.exports = autorest;
 
 function autorest(opts){
   var api = express();
+
+  api.use(bodyParser.json());
 
   _.each(glob.sync(opts.dir + '/*.json'), function(f){
     var collName = basename(f).slice(0, -5);
